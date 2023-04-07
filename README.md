@@ -1,58 +1,80 @@
-# create-svelte
+# Github Commit Calendar
 
-Everything you need to build a Svelte library, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+[![npm version](https://badge.fury.io/js/github-commit-calendar.svg)](https://badge.fury.io/js/github-commit-calendar)
+[![Downloads](https://img.shields.io/npm/dt/github-commit-calendar.svg)](https://www.npmjs.com/package/github-commit-calendar)
 
-Read more about creating a library [in the docs](https://kit.svelte.dev/docs/packaging).
+A Svelte component that displays a user's GitHub commit history as a calendar. You can customize the appearance of the calendar using the available props.
 
-## Creating a project
+## Table of Contents
 
-If you're seeing this, you've probably already done this step. Congrats!
+- [Installation](#installation)
+- [Usage](#usage)
+- [Props](#props)
+- [About](#about)
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Installation
 
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+npm install github-commit-calendar
 ```
 
-Everything inside `src/lib` is part of your library, everything inside `src/routes` can be used as a showcase or preview app.
+## Usage
 
-## Building
+Import the component and use it in your Svelte application:
 
-To build your library:
+```js
+<script>
+  import GithubCommitCalendar from "github-commit-calendar";
+</script>
 
-```bash
-npm run package
+<GithubCommitCalendar gitToken="{your_github_token}" />
 ```
 
-To create a production version of your showcase app:
 
-```bash
-npm run build
+
+### Obtaining a GitHub Token
+
+To use this component, you need a GitHub token with minimal permissions. Follow these steps to generate a token:
+<ol>
+
+<li>Go to your GitHub settings: [https://github.com/settings/tokens](https://github.com/settings/token)</li>
+
+<li>Click on "Generate new token"</li>
+
+<li>Give the token a description and only select the "public_repo" scope.</li>
+
+<li>Click "Generate token"</li>
+
+<li>Copy the generated token and pass it as the gitToken prop to the component.</li>
+</ol>
+
+<b>Note: Keep your token secure and do not share it publicly.</b>
+
+
+
+### Props
+
+| Prop         | Type                  | Default                   | Description                                              |
+| ------------ | --------------------- | ------------------------- | -------------------------------------------------------- |
+| gitToken     | string                | -                         | **Required**. Your GitHub token with "public_repo" scope. |
+| color        | string                | '#bb35dc'                 | The color of the commit bars.                            |
+| size         | 'small' \| 'medium' \| 'large' | 'medium'         | The size of the commit bars.                             |
+| background   | string                | 'rgba(255, 255, 255, .5)' | The background color of the calendar.                    |
+
+
+
+### Rest Props
+
+Any additional props will be passed down to the top-level div element of the component. This can be useful for adding custom styles or attributes.
+
+```js
+<GithubCommitCalendar gitToken="{your_github_token}" id="custom-id" class="custom-class" />
 ```
 
-You can preview the production build with `npm run preview`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
 
-## Publishing
+## About
 
-Go into the `package.json` and give your package the desired name through the `"name"` option. Also consider adding a `"license"` field and point it to a `LICENSE` file which you can create from a template (one popular option is the [MIT license](https://opensource.org/license/mit/)).
+### The Project
 
-To publish your library to [npm](https://www.npmjs.com):
-
-```bash
-npm publish
-```
+This project aims to provide a simple, customizable Svelte component for visualizing GitHub commit history. It was designed to be lightweight and easy to integrate into any Svelte application.

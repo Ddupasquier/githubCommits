@@ -1,5 +1,5 @@
 {
-	"name": "githubcommits",
+	"name": "github-commit-calendar",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
