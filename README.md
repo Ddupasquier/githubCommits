@@ -22,6 +22,8 @@ npm install github-commit-calendar
 
 Import the component and use it in your Svelte application:
 
+Instructions for starting up a new Svelte project [Here](https://svelte.dev/)
+
 ```js
 <script>
   import GithubCommitCalendar from "github-commit-calendar";
