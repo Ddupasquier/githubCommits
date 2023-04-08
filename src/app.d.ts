@@ -6,6 +6,8 @@ interface ContributionDay {
 
 interface ContributionWeek {
 	contributionDays: ContributionDay[];
+	date: string;
+	contributionCount: number;
 }
 
 interface ContributionData {

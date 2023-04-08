@@ -7,10 +7,20 @@
 	export let size: 'small' | 'medium' | 'large' = 'medium';
 	export let background: string = 'rgba(255, 255, 255, .5)';
 
-	let commitData: ContributionData;
+	let commitData: ContributionData = {
+		viewer: {
+			contributionsCollection: {
+				contributionCalendar: {
+					totalContributions: 0,
+					weeks: []
+				}
+			}
+		}
+	};
 	let numWeeks: number | string = 0;
 
 	const GITHUB_GRAPHQL_API = 'https://api.github.com/graphql';
+
 	const query = `
 	query {
 		viewer {
@@ -36,24 +46,19 @@
 				Authorization: `bearer ${token}`,
 				'Content-Type': 'application/json'
 			};
-
 			const response = await fetch(GITHUB_GRAPHQL_API, {
 				method: 'POST',
 				headers: headers,
 				body: JSON.stringify({ query })
 			});
-
 			if (!response.ok) {
 				throw new Error(`HTTP error! status: ${response.status}`);
 			}
-
 			const json = await response.json();
 			const data = json.data;
-
 			if (data) {
 				const weeks = data.viewer.contributionsCollection.contributionCalendar.weeks;
 				const dailyContributions = weeks.flatMap((week: ContributionWeek) => week.contributionDays);
-
 				return {
 					viewer: {
 						contributionsCollection: {
@@ -85,9 +90,8 @@
 
 	onMount(async () => {
 		const data = await load();
-		console.log(data);
 		commitData = data;
-		numWeeks = getNumWeeks(commitData.dailyContributions);
+		numWeeks = getNumWeeks(commitData.viewer.contributionsCollection.contributionCalendar.weeks);
 	});
 
 	const sizeValues: Record<typeof size, string> = {
@@ -96,7 +100,7 @@
 		large: '20px'
 	};
 
-	function getNumWeeks(dailyContributions: string | any[]) {
+	const getNumWeeks = (dailyContributions: string | any[]) => {
 		return Math.ceil(dailyContributions.length / 7);
 	}
 </script>
@@ -106,8 +110,8 @@
 	style="grid-template-columns: repeat({numWeeks}, 1fr); background-color: {background}"
 	{...$$restProps}
 >
-	{#if commitData}
-		{#each commitData.dailyContributions as { date, contributionCount }, i}
+	{#if commitData.viewer.contributionsCollection.contributionCalendar.weeks}
+		{#each commitData.viewer.contributionsCollection.contributionCalendar.weeks as { date, contributionCount }, i}
 			<Popover direction="top">
 				<div
 					slot="trigger"
@@ -135,7 +139,6 @@
 		padding: 10px;
 		border-radius: 0.5rem;
 	}
-
 	.day {
 		display: flex;
 		justify-content: center;
@@ -146,35 +149,28 @@
 		cursor: pointer;
 		transition: transform 0.3s;
 	}
-
 	.day:hover {
 		transform: scale(1.1);
 	}
-
 	.day[data-count='0'] {
 		opacity: 0;
 	}
-
 	.day[data-count='1'] {
 		opacity: 1;
 		filter: brightness(0.4);
 	}
-
 	.day[data-count='2'] {
 		opacity: 1;
 		filter: brightness(0.6);
 	}
-
 	.day[data-count='3'] {
 		opacity: 1;
 		filter: brightness(0.8);
 	}
-
 	.day[data-count='4'] {
 		opacity: 1;
 		filter: brightness(1);
 	}
-
 	p {
 		display: flex;
 		flex-direction: column;
