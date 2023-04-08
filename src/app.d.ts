@@ -1,4 +1,3 @@
-
 interface ContributionDay {
 	date: string;
 	contributionCount: number;
@@ -6,18 +5,15 @@ interface ContributionDay {
 
 interface ContributionWeek {
 	contributionDays: ContributionDay[];
-	date: string;
+}
+
+interface OrganizedContributionWeek {
+	days: (ContributionDay | null)[];
 	contributionCount: number;
 }
 
+
 interface ContributionData {
-	[x: string]: any;
-	viewer: {
-		contributionsCollection: {
-			contributionCalendar: {
-				totalContributions: number;
-				weeks: ContributionWeek[];
-			};
-		};
-	};
+	totalContributions: number;
+	weeks: OrganizedContributionWeek[];
 }
