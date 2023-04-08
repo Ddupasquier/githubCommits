@@ -47,6 +47,7 @@
 	}
 	.day:hover {
 		transform: scale(1.5);
+		z-index: 2;
 	}
 	.day[data-count='0'] {
 		opacity: 0;
