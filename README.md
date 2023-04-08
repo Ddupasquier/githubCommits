@@ -29,7 +29,7 @@ Import the component and use it in your Svelte application:
 
 ```js
 <script>
-  import GithubCommitCalendar from "github-commit-calendar";
+  import { GithubCommitCalendar } from "github-commit-calendar";
 </script>
 
 <GithubCommitCalendar gitToken={your_github_token} />
