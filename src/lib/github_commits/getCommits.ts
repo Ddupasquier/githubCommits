@@ -43,10 +43,7 @@ export async function load(gitToken: string): Promise<ContributionData> {
 
             for (const day of dailyContributions) {
                 const dateObj = new Date(day.date);
-                let dayOfWeek = dateObj.getDay();
-
-                // Shift the dayOfWeek to the right by 1 position and use modulo 7
-                dayOfWeek = (dayOfWeek + 1) % 7;
+                const dayOfWeek = dateObj.getDay();
 
                 currentWeek[dayOfWeek] = day;
                 currentWeekCount += day.contributionCount;
