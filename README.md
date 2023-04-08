@@ -5,7 +5,7 @@
 [![Downloads](https://img.shields.io/npm/dt/github-commit-calendar.svg)](https://www.npmjs.com/package/github-commit-calendar)
 [![GitHub Stars](https://img.shields.io/github/stars/Ddupasquier/githubCommits?style=social)](https://github.com/Ddupasquier/githubCommits/stargazers)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
-[![Platform support](https://img.shields.io/badge/Platform%20support-Windows,%20macOS,%20Linux,%20Svelte-green.svg)](https://github.com/Ddupasquier/githubCommits)
+[![Platform support](https://img.shields.io/badge/Platform%20support-%20Svelte-green.svg)](https://github.com/Ddupasquier/githubCommits)
 
 
 A Svelte component that displays a user's GitHub commit history as a calendar. You can customize the appearance of the calendar using the available props.
@@ -32,7 +32,7 @@ Import the component and use it in your Svelte application:
   import GithubCommitCalendar from "github-commit-calendar";
 </script>
 
-<GithubCommitCalendar gitToken="{your_github_token}" />
+<GithubCommitCalendar gitToken={your_github_token} />
 ```
 
 
@@ -61,10 +61,10 @@ To use this component, you need a GitHub token with minimal permissions. Follow 
 
 | Prop         | Type                  | Default                   | Description                                              |
 | ------------ | --------------------- | ------------------------- | -------------------------------------------------------- |
-| gitToken     | string                | -                         | **Required**. Your GitHub token with "public_repo" scope. |
-| color        | string                | '#bb35dc'                 | The color of the commit bars.                            |
-| size         | 'small' \| 'medium' \| 'large' | 'medium'         | The size of the commit bars.                             |
-| background   | string                | 'rgba(255, 255, 255, .5)' | The background color of the calendar.                    |
+| gitToken     | string                | -                         | **Required**. Your GitHub token with "public_repo" scope.|
+| color        | string                | 'rgba(187, 53, 220)'      | The color of the commit bars.                            |
+| size         | 'small', 'medium', 'large' | 'medium'         | The size of the commit bars.                             |
+| background   | string                | 'rgba(187, 53, 220, .1)'  | The background color of the calendar.                    |
 | gap          | number                | 2                         | The gap between each cell in px                          |
 | hover        | boolean               | false                     | The hover animation of the calendar                      |
 
@@ -75,7 +75,7 @@ To use this component, you need a GitHub token with minimal permissions. Follow 
 Any additional props will be passed down to the top-level div element of the component. This can be useful for adding custom styles or attributes.
 
 ```js
-<GithubCommitCalendar gitToken="{your_github_token}" id="custom-id" class="custom-class" />
+<GithubCommitCalendar gitToken={your_github_token} id="custom-id" class="custom-class" />
 ```
 
 
