@@ -9,7 +9,6 @@ export const getDataCount = (contributionCount: number): number => {
     return contributionCount + 1;
 }
 
-// take in a date and return it in mm-dd-yyyy format, with the month being the name of the month
 export const formatDate = (date: string): string => {
     const month = new Intl.DateTimeFormat('en-US', { month: 'long' }).format(new Date(date));
     const day = new Date(date).getDate();

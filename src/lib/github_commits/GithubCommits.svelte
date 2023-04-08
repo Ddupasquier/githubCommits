@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { load } from './getCommits';
+	import { load } from './service';
 
 	import Week from './Week.svelte';
 
