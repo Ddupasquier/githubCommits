@@ -1,6 +1,6 @@
 {
 	"name": "github-commit-calendar",
-	"version": "0.0.8",
+	"version": "0.0.10",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -21,9 +21,7 @@
 		}
 	},
 	"files": [
-		"dist",
-		"!dist/**/*.test.*",
-		"!dist/**/*.spec.*"
+		"dist/*"
 	],
 	"peerDependencies": {
 		"svelte": "^3.54.0"
