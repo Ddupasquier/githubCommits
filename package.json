@@ -53,6 +53,6 @@
 	"type": "module",
 	"dependencies": {
 		"graphql-request": "^5.2.0",
-		"mysvelte-ui": "^0.0.21"
+		"mysvelte-ui": "^0.0.21+latest"
 	}
 }
