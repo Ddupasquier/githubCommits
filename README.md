@@ -2,6 +2,10 @@
 
 [![npm version](https://badge.fury.io/js/github-commit-calendar.svg)](https://badge.fury.io/js/github-commit-calendar)
 [![Downloads](https://img.shields.io/npm/dt/github-commit-calendar.svg)](https://www.npmjs.com/package/github-commit-calendar)
+[![GitHub Stars](https://img.shields.io/github/stars/Ddupasquier/githubCommits?style=social)](https://github.com/Ddupasquier/githubCommits/stargazers)
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
+[![Platform support](https://img.shields.io/badge/Platform%20support-Windows,%20macOS,%20Linux,%20Svelte-green.svg)](https://github.com/Ddupasquier/githubCommits)
+
 
 A Svelte component that displays a user's GitHub commit history as a calendar. You can customize the appearance of the calendar using the available props.
 
