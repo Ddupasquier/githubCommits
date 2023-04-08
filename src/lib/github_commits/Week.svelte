@@ -5,9 +5,10 @@
 	export let week: OrganizedContributionWeek;
 	export let color: string;
 	export let size: string;
+    export let gap: number;
 </script>
 
-<div class="week">
+<div class="week" style="gap: {gap}px">
 	{#each week.days as day}
 		{#if day && day.contributionCount}
 			<Popover direction="top">
@@ -18,9 +19,6 @@
 					data-count={getDataCount(day.contributionCount)}
 				/>
 				<p slot="content">
-					<!-- <span class="tooltip">{day.contributionCount} commits</span>
-					{day.date} ({weekday(day.date)}) -->
-                    <!-- num contributions made on sunday of this date -->
                     {day.contributionCount} contributions on {weekday(day.date)}, {formatDate(day.date)}
 				</p>
 			</Popover>
@@ -32,9 +30,8 @@
 
 <style>
 	.week {
-		display: grid;
-		grid-template-rows: repeat(7, 1fr);
-		grid-gap: 4px;
+		display: flex;
+        flex-direction: column;
 		background-color: transparent;
 	}
 

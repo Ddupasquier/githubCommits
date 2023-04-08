@@ -1,40 +1,39 @@
 const GITHUB_GRAPHQL_API = 'https://api.github.com/graphql';
 
 const query = `
-	query {
-		viewer {
-			contributionsCollection {
-				contributionCalendar {
-					totalContributions
-					weeks {
-						contributionDays {
-							date
-							contributionCount
-						}
-					}
-				}
-			}
-		}
-	}
-	`;
+    query {
+        viewer {
+            contributionsCollection {
+                contributionCalendar {
+                    totalContributions
+                    weeks {
+                        contributionDays {
+                            date
+                            contributionCount
+                        }
+                    }
+                }
+            }
+        }
+    }
+`;
 
 export async function load(gitToken: string): Promise<ContributionData> {
     try {
-        const token = gitToken;
-        const headers = {
-            Authorization: `bearer ${token}`,
-            'Content-Type': 'application/json'
-        };
         const response = await fetch(GITHUB_GRAPHQL_API, {
             method: 'POST',
-            headers: headers,
-            body: JSON.stringify({ query })
+            headers: {
+                Authorization: `bearer ${gitToken}`,
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ query }),
         });
+
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
-        const json = await response.json();
-        const data = json.data;
+
+        const { data } = await response.json();
 
         const organizeWeeks = (dailyContributions: ContributionDay[]): OrganizedContributionWeek[] => {
             const weeks: OrganizedContributionWeek[] = [];
@@ -61,8 +60,6 @@ export async function load(gitToken: string): Promise<ContributionData> {
 
             return weeks;
         };
-
-
 
         if (data) {
             const weeks = data.viewer.contributionsCollection.contributionCalendar.weeks;

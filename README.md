@@ -60,6 +60,8 @@ To use this component, you need a GitHub token with minimal permissions. Follow 
 | color        | string                | '#bb35dc'                 | The color of the commit bars.                            |
 | size         | 'small' \| 'medium' \| 'large' | 'medium'         | The size of the commit bars.                             |
 | background   | string                | 'rgba(255, 255, 255, .5)' | The background color of the calendar.                    |
+| gap          | number                | 2                         | The gap between each cell in px                          |
+| hover        | boolean               | false                     | The hover animation of the calendar                      |
 
 
 
