@@ -1,11 +1,13 @@
 # Github Commit Calendar
 ![Image](https://i.ibb.co/842K6W9/Screenshot-2023-04-08-at-12-52-40-PM-2.png)
 
-[![npm version](https://badge.fury.io/js/github-commit-calendar.svg)](https://badge.fury.io/js/github-commit-calendar)
-[![Downloads](https://img.shields.io/npm/dt/github-commit-calendar.svg)](https://www.npmjs.com/package/github-commit-calendar)
-[![GitHub Stars](https://img.shields.io/github/stars/Ddupasquier/githubCommits?style=social)](https://github.com/Ddupasquier/githubCommits/stargazers)
-[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/)
-[![Platform support](https://img.shields.io/badge/Platform%20support-%20Svelte-green.svg)](https://github.com/Ddupasquier/githubCommits)
+
+[![npm version](https://badge.fury.io/js/github-commit-calendar.svg)](https://badge.fury.io/js/github-commit-calendar) 🔥 
+[![npm](https://img.shields.io/npm/dw/github-commit-calendar)](https://npmjs.com/package/github-commit-calendar) ⭐️ 
+[![Downloads](https://img.shields.io/npm/dt/github-commit-calendar.svg)](https://www.npmjs.com/package/github-commit-calendar) 🚀 
+[![GitHub Stars](https://img.shields.io/github/stars/Ddupasquier/githubCommits?style=social)](https://github.com/Ddupasquier/githubCommits/stargazers) 😎 
+[![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.svg?v=103)](https://github.com/ellerbrock/open-source-badges/) 💖 
+[![Platform support](https://img.shields.io/badge/Platform%20support-%20Svelte-green.svg)](https://github.com/Ddupasquier/githubCommits) 🛠️
 
 
 A Svelte component that displays a user's GitHub commit history as a calendar. You can customize the appearance of the calendar using the available props.
@@ -42,7 +44,7 @@ Import the component and use it in your Svelte application:
 To use this component, you need a GitHub token with minimal permissions. Follow these steps to generate a token:
 <ol>
 
-<li>Go to your GitHub settings: [https://github.com/settings/tokens](https://github.com/settings/token)</li>
+<li>Go to your <a href="https://github.com/settings/tokens">Github Settings</a></li>
 
 <li>Click on "Generate new token"</li>
 
@@ -53,7 +55,7 @@ To use this component, you need a GitHub token with minimal permissions. Follow 
 <li>Copy the generated token and pass it as the gitToken prop to the component.</li>
 </ol>
 
-<b>Note: Keep your token secure and do not share it publicly.</b>
+<b>Note: Keep your token secure and do not share it publicly. 🚨</b>
 
 
 
