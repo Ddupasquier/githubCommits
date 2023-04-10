@@ -49,6 +49,7 @@
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module",
+	"license": "MIT",
 	"dependencies": {
 		"graphql-request": "^5.2.0",
 		"mysvelte-ui": "^0.0.21+latest"
