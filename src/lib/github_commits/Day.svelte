@@ -17,7 +17,8 @@
 	</div>
 </div>
 
-<style>
+<style lang="scss">
+	@use 'sass:math';
 	.day-wrapper {
 		position: relative;
 		display: inline-block;
@@ -38,44 +39,17 @@
 		transform: scale(1.5);
 		z-index: 2;
 	}
-	.day[data-count='0'] {
-		opacity: 0;
-	}
-	.day[data-count='1'] {
-		opacity: 1;
-		filter: brightness(0.3);
-	}
-	.day[data-count='2'] {
-		opacity: 1;
-		filter: brightness(0.4);
-	}
-	.day[data-count='3'] {
-		opacity: 1;
-		filter: brightness(0.5);
-	}
-	.day[data-count='4'] {
-		opacity: 1;
-		filter: brightness(0.6);
-	}
-
-	.day[data-count='5'] {
-		opacity: 1;
-		filter: brightness(0.7);
-	}
-
-	.day[data-count='6'] {
-		opacity: 1;
-		filter: brightness(0.8);
-	}
-
-	.day[data-count='7'] {
-		opacity: 1;
-		filter: brightness(0.9);
-	}
-
-	.day[data-count='8'] {
-		opacity: 1;
-		filter: brightness(1);
+	.day {
+		@for $i from 1 through 8 {
+			&[data-count='#{$i}'] {
+				@if $i == 1 {
+					opacity: 0;
+				} @else {
+					opacity: 1;
+					filter: brightness(#{0.5 + math.div($i - 2, 8)});
+				}
+			}
+		}
 	}
 
 	.tooltip {

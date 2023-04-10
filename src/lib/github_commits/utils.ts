@@ -17,3 +17,29 @@ export const formatDate = (date: string): string => {
     const year = new Date(date).getFullYear();
     return `${month} ${day}, ${year}`;
 }
+
+export const getDisplayedMonths = () => {
+    const currentDate = new Date();
+    const currentMonth = currentDate.getMonth();
+
+    const shortMonthNames = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec'
+    ];
+
+    return [
+        ...shortMonthNames.slice(currentMonth),
+        ...shortMonthNames.slice(0, currentMonth),
+        shortMonthNames[currentMonth]
+    ];
+}
