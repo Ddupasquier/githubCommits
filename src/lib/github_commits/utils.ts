@@ -1,6 +1,8 @@
 export const weekday = (date: string): string => {
-    return new Intl.DateTimeFormat('en-US', { weekday: 'long' }).format(new Date(date));
-}
+    const [year, month, day] = date.split('-').map(Number);
+    const utcDate = new Date(Date.UTC(year, month - 1, day));
+    return new Intl.DateTimeFormat('en-US', { weekday: 'long', timeZone: 'UTC' }).format(utcDate);
+};
 
 export const getDataCount = (contributionCount: number): number => {
     if (contributionCount >= 8) {
