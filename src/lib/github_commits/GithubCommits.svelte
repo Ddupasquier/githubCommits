@@ -4,18 +4,27 @@
 
 	import Week from './Week.svelte';
 
-	export let gitToken: string;
+	export let gitToken!: string;
 	export let color: string = 'rgba(187, 53, 220)';
 	export let size: 'small' | 'medium' | 'large' = 'medium';
 	export let background: string = 'rgba(187, 53, 220, .1)';
 	export let gap: number = 2;
 	export let hover: boolean = false;
 
-	let commitData: ContributionData;
+	let commitData: CommitData;
+	let error: string | null = null;
 
 	onMount(async () => {
-		const allWeeks = await load(gitToken);
-		commitData = allWeeks;
+		try {
+			const data = await load(gitToken);
+			commitData = data;
+		} catch (err) {
+			if (err instanceof Error) {
+				error = err.message;
+			} else {
+				error = 'An unknown error occurred.';
+			}
+		}
 	});
 
 	const sizeValues: Record<typeof size, string> = {
@@ -40,7 +49,9 @@
 		}
 	}}
 >
-	{#if commitData}
+	{#if error}
+		<p>Error: {error}</p>
+	{:else if commitData}
 		{#each commitData.weeks as week}
 			<Week {week} {color} size={sizeValues[size]} {gap} />
 		{/each}

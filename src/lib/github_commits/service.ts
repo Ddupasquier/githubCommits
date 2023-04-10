@@ -18,66 +18,48 @@ const query = `
     }
 `;
 
-export async function load(gitToken: string): Promise<ContributionData> {
-    try {
-        const response = await fetch(GITHUB_GRAPHQL_API, {
-            method: 'POST',
-            headers: {
-                Authorization: `bearer ${gitToken}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ query }),
-        });
+// Type guard function
+function isGraphQLResponse(data: any): data is GraphQLResponse {
+    return (
+        data &&
+        data.data &&
+        data.data.viewer &&
+        data.data.viewer.contributionsCollection &&
+        data.data.viewer.contributionsCollection.contributionCalendar &&
+        Array.isArray(data.data.viewer.contributionsCollection.contributionCalendar.weeks) &&
+        typeof data.data.viewer.contributionsCollection.contributionCalendar.totalContributions === 'number'
+    );
+}
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
+export async function load(gitToken: string): Promise<CommitData> {
+    const response = await fetch(GITHUB_GRAPHQL_API, {
+        method: 'POST',
+        headers: {
+            Authorization: `bearer ${gitToken}`,
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ query }),
+    });
 
-        const { data } = await response.json();
-
-        const organizeWeeks = (dailyContributions: ContributionDay[]): OrganizedContributionWeek[] => {
-            const weeks: OrganizedContributionWeek[] = [];
-            let currentWeek: (ContributionDay | null)[] = Array(7).fill(null);
-            let currentWeekCount = 0;
-
-            for (const day of dailyContributions) {
-                const dateObj = new Date(day.date);
-                const dayOfWeek = dateObj.getDay();
-
-                currentWeek[dayOfWeek] = day;
-                currentWeekCount += day.contributionCount;
-
-                if (dayOfWeek === 6) {
-                    weeks.push({ days: currentWeek, contributionCount: currentWeekCount });
-                    currentWeek = Array(7).fill(null);
-                    currentWeekCount = 0;
-                }
-            }
-
-            if (currentWeek.some(day => day !== null)) {
-                weeks.push({ days: currentWeek, contributionCount: currentWeekCount });
-            }
-
-            return weeks;
-        };
-
-        if (data) {
-            const weeks = data.viewer.contributionsCollection.contributionCalendar.weeks;
-            const dailyContributions = weeks.flatMap((week: ContributionWeek) => week.contributionDays);
-            const organizedWeeks = organizeWeeks(dailyContributions);
-
-            return {
-                totalContributions: data.viewer.contributionsCollection.contributionCalendar.totalContributions,
-                weeks: organizedWeeks,
-            };
-        } else {
-            throw new Error('Failed to load data');
-        }
-    } catch (error) {
-        console.error('Error fetching commit history data:', error);
-        return {
-            totalContributions: 0,
-            weeks: [],
-        };
+    if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
     }
+
+    const responseData = await response.json();
+
+    if (!isGraphQLResponse(responseData)) {
+        throw new Error('Invalid GraphQL response');
+    }
+
+    const contributionCalendar = responseData.data.viewer.contributionsCollection.contributionCalendar;
+    const weeks = contributionCalendar.weeks;
+    const totalContributions = contributionCalendar.totalContributions;
+
+    let weeksArray: Week[] = [];
+
+    for (const week of weeks) {
+        weeksArray.push(week);
+    }
+
+    return { weeks: weeksArray, totalContributions };
 }
