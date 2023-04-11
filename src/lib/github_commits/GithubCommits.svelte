@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { loadCommits } from './commits';
-	import { loadRepositories } from './recentRepos';
+	// import { loadRepositories } from './recentRepos';
 	import { getDisplayedMonths } from './utils';
 
 	import Week from './Week.svelte';
@@ -15,6 +15,7 @@
 	export let key: boolean = true;
 	export let months: boolean = true;
 	export let weekdays: boolean = true;
+	export let commitDataOverride: CommitData | null = null;
 	// export let recentRepos: boolean = true;
 
 	// let recents: RepositoryNode[] = [];
@@ -25,7 +26,7 @@
 
 	onMount(async () => {
 		try {
-			const data = await loadCommits(gitToken);
+			const data = commitDataOverride || (await loadCommits(gitToken));
 			commitData = data;
 		} catch (err) {
 			if (err instanceof Error) {
@@ -53,7 +54,7 @@
 		large: '20px'
 	};
 
-	$: sizeInPixels = typeof size === 'number' ? `${size}px` : sizeValues[size];
+	$: sizeInPixels = (typeof size === 'number' ? `${size}px` : sizeValues[size]) || '12px';
 	$: dayStyles = `background: ${color}; width: ${sizeInPixels}; height: ${sizeInPixels};`;
 	$: keyStyles = `gap: ${gap}px`;
 	$: calendarStyles = `gap: ${gap}px;`;
