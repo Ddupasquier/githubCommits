@@ -33,3 +33,20 @@ type GraphQLResponseData = {
 type GraphQLResponse = {
 	data: GraphQLResponseData;
 };
+
+interface RepositoryNode {
+	name: string;
+	url: string;
+}
+
+interface RepositoryData {
+	nodes: RepositoryNode[];
+}
+
+interface ViewerData {
+	repositories: RepositoryData;
+}
+
+interface RecentRepositoriesResponse {
+	viewer: ViewerData;
+}

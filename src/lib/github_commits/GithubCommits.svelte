@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { load } from './service';
+	import { loadCommits } from './commits';
+	import { loadRepositories } from './recentRepos';
 	import { getDisplayedMonths } from './utils';
 
 	import Week from './Week.svelte';
@@ -14,14 +15,17 @@
 	export let key: boolean = true;
 	export let months: boolean = true;
 	export let weekdays: boolean = true;
+	// export let recentRepos: boolean = true;
 
+	// let recents: RepositoryNode[] = [];
+	// let recentsOpen: boolean = false;
 	let commitData: CommitData;
 	let error: string | null = null;
 	let displayedMonths = getDisplayedMonths();
 
 	onMount(async () => {
 		try {
-			const data = await load(gitToken);
+			const data = await loadCommits(gitToken);
 			commitData = data;
 		} catch (err) {
 			if (err instanceof Error) {
@@ -30,6 +34,17 @@
 				error = 'An unknown error occurred.';
 			}
 		}
+
+		// try {
+		// 	const data = await loadRepositories(gitToken);
+		// 	recents = data;
+		// } catch (err) {
+		// 	if (err instanceof Error) {
+		// 		error = err.message;
+		// 	} else {
+		// 		error = 'An unknown error occurred.';
+		// 	}
+		// }
 	});
 
 	const sizeValues: Record<string, string> = {
@@ -84,20 +99,38 @@
 				{/each}
 			{/if}
 		</div>
-		{#if key}
-			<div class="key" style={keyStyles}>
-				Less
-				<div class="day" style={dayStyles} data-count="1" />
-				<div class="day" style={dayStyles} data-count="2" />
-				<div class="day" style={dayStyles} data-count="3" />
-				<div class="day" style={dayStyles} data-count="4" />
-				<div class="day" style={dayStyles} data-count="5" />
-				<div class="day" style={dayStyles} data-count="6" />
-				<div class="day" style={dayStyles} data-count="7" />
-				<div class="day" style={dayStyles} data-count="8" />
-				More
-			</div>
-		{/if}
+		<div class="bottom">
+			<!-- {#if recentRepos}
+				<div class="recent-repos">
+					<button on:click={() => (recentsOpen = !recentsOpen)}>
+						{recentsOpen ? 'Hide' : 'Show'}
+					</button>
+					{#if recentsOpen}
+						<div class="recents">
+							{#each recents as repo}
+								<div class="repo">
+									<a href={repo.url} target="_blank">{repo.name}</a>
+								</div>
+							{/each}
+						</div>
+					{/if}
+				</div>
+			{/if} -->
+			{#if key}
+				<div class="key" style={keyStyles}>
+					Less
+					<div class="day" style={dayStyles} data-count="1" />
+					<div class="day" style={dayStyles} data-count="2" />
+					<div class="day" style={dayStyles} data-count="3" />
+					<div class="day" style={dayStyles} data-count="4" />
+					<div class="day" style={dayStyles} data-count="5" />
+					<div class="day" style={dayStyles} data-count="6" />
+					<div class="day" style={dayStyles} data-count="7" />
+					<div class="day" style={dayStyles} data-count="8" />
+					More
+				</div>
+			{/if}
+		</div>
 	</div>
 </div>
 
@@ -126,6 +159,13 @@
 		width: fit-content;
 		height: fit-content;
 		padding: 0.4rem 0.4rem;
+	}
+
+	.bottom {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
 	}
 
 	.key {

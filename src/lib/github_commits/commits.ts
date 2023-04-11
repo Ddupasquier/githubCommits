@@ -18,8 +18,7 @@ const query = `
     }
 `;
 
-// Type guard function
-function isGraphQLResponse(data: any): data is GraphQLResponse {
+const isGraphQLResponse = (data: any): data is GraphQLResponse => {
     return (
         data &&
         data.data &&
@@ -31,7 +30,7 @@ function isGraphQLResponse(data: any): data is GraphQLResponse {
     );
 }
 
-export async function load(gitToken: string): Promise<CommitData> {
+export const loadCommits = async (gitToken: string): Promise<CommitData> => {
     const response = await fetch(GITHUB_GRAPHQL_API, {
         method: 'POST',
         headers: {
@@ -63,3 +62,8 @@ export async function load(gitToken: string): Promise<CommitData> {
 
     return { weeks: weeksArray, totalContributions };
 }
+
+
+
+
+
