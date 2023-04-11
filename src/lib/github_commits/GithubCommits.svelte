@@ -42,7 +42,7 @@
 	$: dayStyles = `background: ${color}; width: ${sizeInPixels}; height: ${sizeInPixels};`;
 	$: keyStyles = `gap: ${gap}px`;
 	$: calendarStyles = `gap: ${gap}px;`;
-	$: weekdaysStyles = `gap: ${sizeInPixels};`;
+	$: weekdaysStyles = `gap: ${Number(sizeInPixels.split('px')[0]) + gap + 'px'};`;
 	$: wrapperStyles = `background: ${background}; border-radius: ${gap}px;`;
 </script>
 
