@@ -1,6 +1,6 @@
 # Github Commit Calendar
-![Image](https://i.ibb.co/842K6W9/Screenshot-2023-04-08-at-12-52-40-PM-2.png)
 
+<img src="https://user-images.githubusercontent.com/89223122/231030957-6a4a6362-5fea-4628-8356-4355072947b7.png" width="100%" alt="github-commit-calendar" />
 
 [![npm version](https://badge.fury.io/js/github-commit-calendar.svg)](https://badge.fury.io/js/github-commit-calendar) 🔥 
 [![npm](https://img.shields.io/npm/dw/github-commit-calendar)](https://npmjs.com/package/github-commit-calendar) ⭐️ 
