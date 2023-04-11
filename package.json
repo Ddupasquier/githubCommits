@@ -1,6 +1,21 @@
 {
 	"name": "github-commit-calendar",
 	"version": "1.0.0",
+	"license": "MIT",
+	"description": "A Svelte component to display a GitHub user's commit calendar",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Ddupasquier/githubCommits"
+	},
+	"author": "Dylan Dupasquier dylandupasquier@gmail.com",
+	"keywords": [
+		"svelte",
+		"component",
+		"web component",
+		"github",
+		"commit",
+		"calendar"
+	],
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -50,7 +65,6 @@
 	"svelte": "./dist/index.js",
 	"types": "./dist/index.d.ts",
 	"type": "module",
-	"license": "MIT",
 	"dependencies": {
 		"graphql-request": "^5.2.0",
 		"mysvelte-ui": "^0.0.21+latest"

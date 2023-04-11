@@ -65,10 +65,13 @@ To use this component, you need a GitHub token with minimal permissions. Follow 
 | ------------ | --------------------- | ------------------------- | -------------------------------------------------------- |
 | gitToken     | string                | -                         | **Required**. Your GitHub token with "public_repo" scope.|
 | color        | string                | 'rgba(187, 53, 220)'      | The color of the commit bars.                            |
-| size         | 'small', 'medium', 'large' | 'medium'         | The size of the commit bars.                             |
+| size         | 'small', 'medium', 'large', number | 'medium'     | The size of the commit bars. The value can either be a string of the specific size, or it can be a number in px.                                                                                   |
 | background   | string                | 'rgba(187, 53, 220, .1)'  | The background color of the calendar.                    |
-| gap          | number                | 2                         | The gap between each cell in px                          |
-| hover        | boolean               | false                     | The hover animation of the calendar                      |
+| gap          | number                | 2                         | The gap between each cell in px.                         |
+| hover        | boolean               | false                     | The hover animation of the calendar.                     |
+| key          | boolean               | true                      | Key to be shown or not shown.                            | 
+| months       | boolean               | true                      | Months to be shown or not shown.                         |
+| weekdays     | boolean               | true                      | Weekdays to be shown or not shown.                       |
 
 
 
@@ -77,7 +80,7 @@ To use this component, you need a GitHub token with minimal permissions. Follow 
 Any additional props will be passed down to the top-level div element of the component. This can be useful for adding custom styles or attributes.
 
 ```js
-<GithubCommitCalendar gitToken={your_github_token} id="custom-id" class="custom-class" />
+<GithubCommitCalendar gitToken={your_github_token} id="custom-id" style="custom styles" />
 ```
 
 

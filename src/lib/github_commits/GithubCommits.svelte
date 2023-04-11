@@ -7,7 +7,7 @@
 
 	export let gitToken!: string;
 	export let color: string = 'rgba(187, 53, 220)';
-	export let size: 'small' | 'medium' | 'large' = 'medium';
+	export let size: 'small' | 'medium' | 'large' | number = 'medium';
 	export let background: string = 'rgba(187, 53, 220, .1)';
 	export let gap: number = 2;
 	export let hover: boolean = false;
@@ -32,21 +32,23 @@
 		}
 	});
 
-	const sizeValues: Record<typeof size, string> = {
+	const sizeValues: Record<string, string> = {
 		small: '7px',
 		medium: '12px',
 		large: '20px'
 	};
 
-	$: dayStyles = `background: ${color}; width: ${sizeValues[size]}; height: ${sizeValues[size]};`;
+	$: sizeInPixels = typeof size === 'number' ? `${size}px` : sizeValues[size];
+	$: dayStyles = `background: ${color}; width: ${sizeInPixels}; height: ${sizeInPixels};`;
 	$: keyStyles = `gap: ${gap}px`;
 	$: calendarStyles = `gap: ${gap}px;`;
-	$: wrapperStyles = `background: ${background};  border-radius: ${gap}px`;
+	$: weekdaysStyles = `gap: ${sizeInPixels};`;
+	$: wrapperStyles = `background: ${background}; border-radius: ${gap}px;`;
 </script>
 
-<div class="calendar-wrapper" style={wrapperStyles}>
+<div class="calendar-wrapper" style={wrapperStyles} {...$$restProps}>
 	{#if weekdays}
-		<div class="weekdays">
+		<div class="weekdays" style={weekdaysStyles}>
 			<span> mon </span>
 			<span> wed </span>
 			<span> fri </span>
@@ -62,7 +64,6 @@
 		{/if}
 		<div
 			class="calendar"
-			{...$$restProps}
 			style={calendarStyles}
 			on:mouseenter={() => {
 				if (hover) {
@@ -79,7 +80,7 @@
 				<p>Error: {error}</p>
 			{:else if commitData}
 				{#each commitData.weeks as week}
-					<Week {week} {color} size={sizeValues[size]} {gap} />
+					<Week {week} {color} size={sizeInPixels} {gap} />
 				{/each}
 			{/if}
 		</div>
@@ -115,7 +116,6 @@
 		display: flex;
 		grid-template-columns: repeat(7, 1fr);
 		width: fit-content;
-		padding: 5px;
 		transition: gap 0.3s ease-in-out;
 	}
 
@@ -125,13 +125,14 @@
 		align-items: center;
 		width: fit-content;
 		height: fit-content;
+		padding: 0.4rem 0.4rem;
 	}
 
 	.key {
 		display: flex;
 		align-items: center;
 		justify-content: flex-end;
-		padding: 0.2rem 0.4rem;
+		padding: 0.4rem 0.4rem;
 		box-sizing: border-box;
 		width: 100%;
 		@include font-style;
@@ -141,7 +142,7 @@
 		display: flex;
 		justify-content: space-between;
 		width: 100%;
-		padding: 0.2rem 0.4rem;
+		padding: 0.4rem 0.4rem;
 		box-sizing: border-box;
 		@include font-style;
 	}
@@ -151,8 +152,7 @@
 		flex-direction: column;
 		align-items: flex-start;
 		justify-content: space-between;
-		gap: 0.5rem;
-		padding: 0.2rem 0.4rem;
+		padding: 0.2rem 0.4rem 0.2rem 0;
 		@include font-style;
 	}
 
